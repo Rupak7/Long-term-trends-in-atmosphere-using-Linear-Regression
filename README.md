@@ -2,3 +2,5 @@
 
 This is a project that is made on python with its modules. 
 Here, the weather forecast of the past 15 years has been recorded in netCDF file which is read and using linear regression predicted the weather statistics over India by dividing it into 5 parts.
+
+The link for the satellite data: ftp://saber.gats-inc.com/custom/Temp_O3/v2.0/
