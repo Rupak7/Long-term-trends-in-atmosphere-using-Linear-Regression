@@ -5,32 +5,57 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 
 nc=Dataset('/home/rupak7/SABER_Temp_O3_April2002_v2.0.nc','r')
-print nc  #summary of the netCDF file
-
-print(nc.variables.keys())  #get all varibale names
-lat=nc.variables['tplatitude'][:]  #latitude variable
-print lat
-
-orb=nc.variables['orbit'][:]
-print orb
-print(nc.dimensions.keys()) #types of dimensions
-for d in nc.dimensions.items():  #values of the dimensions
-  	print(d)
+#print nc  #summary of the netCDF file
 
 
-#every attribute has its own dimension and shape
-print lat.dimensions
-print lat.shape
+# print(nc.variables.keys())  #get all variable names
+# lat1=nc.variables['tpgpaltitude']     #prints the masked array
+# print lat1
+# lat=np.array(nc.variables['tpaltitude'])  #latitude variable
+# print lat
+nc.close()
 
-# #each dimension typically has a variable associated with it
 
-fig = plt.figure(num=None, figsize=(12, 8) )
-m = Basemap(projection='merc',llcrnrlat=-80,urcrnrlat=80,llcrnrlon=-180,urcrnrlon=180,resolution='c')
-m.drawcoastlines()
-m.fillcontinents(color='tan',lake_color='lightblue')
-# draw parallels and meridians.
-m.drawparallels(np.arange(-90.,91.,30.),labels=[True,True,False,False],dashes=[2,2])
-m.drawmeridians(np.arange(-180.,181.,60.),labels=[False,False,False,True],dashes=[2,2])
-m.drawmapboundary(fill_color='lightblue')
-plt.title("Mercator Projection")
+# clean_lat = []
+
+
+# for j in range(len(lat)):        
+#     clean_lat.append(lat[j])
+#     for i in range(len(lat[j])):
+#        if lat[j][i] > 1e+20:
+#             clean_lat[j][i] = 0
+
+
+# lat2 = np.array([item[:-1] for item in clean_lat])
+# lat3 = [np.sum(item)/len(item)for item in lat2]
+# lat3 = np.around(lat3,decimals=3,out=None)
+# print lat3
+
+# altitude=pd.DataFrame(lat3)
+
+# altitude.to_hdf('April2002.h5',key='altitude',mode='a')
+
+alt=pd.read_hdf('April2002.h5','altitude')
+
+lat=pd.read_hdf('April2002.h5','latitude')
+
+lon=pd.read_hdf('April2002.h5','longitude')
+
+time=pd.read_hdf('April2002.h5','time')
+
+temp = [alt, lat, lon, time]
+
+# print temp
+
+# temp = (lon - lat)/(time - alt) * alt 
+# print temp
+
+plt.plot(temp,alt)
 plt.show()
+
+
+
+
+
+
+
