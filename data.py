@@ -50,8 +50,38 @@ temp = [alt, lat, lon, time]
 # temp = (lon - lat)/(time - alt) * alt 
 # print temp
 
-plt.plot(temp,alt)
-plt.show()
+# plt.plot(temp,alt)
+# plt.show()
+
+with open('altitudeApril.txt', 'r') as f1:
+    data1 = f1.read()
+
+with open('latitudeApril.txt','r') as f:
+    data = f.read()
+#
+res = [float(i) for i in data.split()]
+res1 = [float(i) for i in data1.split()]
+# #print res
+position_lat = [index for index,element in enumerate(res) if element>22 and element<28]
+#print position_lat
+#
+
+with open('longitudeApril.txt','r') as f2:
+    data2 =  f2.read()
+#
+res2 = [float(i) for i in data2.split()]
+# #print res
+#
+position_lon = [index for index,element in enumerate(res2) if element>86 and element<96]
+#print position_lon
+
+position = []
+for i in position_lat:
+    for j in position_lon:
+        if i==j:
+            position.append(i)
+print position
+
 
 
 
